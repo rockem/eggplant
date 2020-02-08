@@ -1,3 +1,3 @@
 pytest==5.3.5
-pika==1.1.0
 busypie==0.3.0
+kombu==4.6.7
