@@ -16,7 +16,7 @@ class Worker(ConsumerMixin):
         self._callback(
             body,
             {'topic': message.delivery_info['routing_key']})
-        message.ak()
+        message.ack()
 
 
 class RabbitKombuBroker:
