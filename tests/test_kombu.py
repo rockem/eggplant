@@ -7,7 +7,7 @@ from kombu import Connection, Exchange, Producer, Queue, binding
 from kombu.mixins import ConsumerMixin
 
 from eggplant.core import Eggplant
-from eggplant.kombu import RabbitKombuConsumer
+from eggplant.kombu import RabbitKombuBroker
 
 RABBIT_URI = 'amqp://localhost'
 EXCHANGE = 'eggplant-exchange'
@@ -16,13 +16,14 @@ EXCHANGE = 'eggplant-exchange'
 @pytest.fixture(scope='module')
 def app():
     eggplant = Eggplant(
-        RabbitKombuConsumer(amqp_uri=RABBIT_URI, exchange='eggplant-exchange', queue='test_queue'))
+        RabbitKombuBroker(amqp_uri=RABBIT_URI, exchange='eggplant-exchange', queue='test_queue'))
     yield eggplant
     eggplant.stop()
 
 
 def test_consume_using_function_handler(app):
     received_messages = []
+    count = []
 
     @app.handler('status_changed')
     def status_changed_handler(message):

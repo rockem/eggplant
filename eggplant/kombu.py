@@ -16,10 +16,10 @@ class Worker(ConsumerMixin):
         self._callback(
             body,
             {'topic': message.delivery_info['routing_key']})
-        message.ack()
+        message.ak()
 
 
-class RabbitKombuConsumer:
+class RabbitKombuBroker:
 
     def __init__(self, amqp_uri, exchange, queue):
         self._amqp_uri = amqp_uri
