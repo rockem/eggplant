@@ -14,4 +14,7 @@ def handle_user_login(message):
 class UserLoginHandler:
     def handle(self, message):
         User.updateLastLoginTime()
+        
+# Publish 
+app.publish(topic='user_logged_in', message='username:kuku')
 ```
