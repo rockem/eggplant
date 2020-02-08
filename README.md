@@ -10,7 +10,7 @@ def handle_user_login(message):
     User.updateLastLoginTime()
 
 # Class handlers
-@app.handler_class('user_logged_in')
+@app.handler('user_logged_in')
 class UserLoginHandler:
     def handle(self, message):
         User.updateLastLoginTime()

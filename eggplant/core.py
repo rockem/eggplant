@@ -6,15 +6,9 @@ class Eggplant:
         self._broker = broker
         self._handlers = {}
 
-    def handler(self, message_name):
+    def handler(self, topic):
         def decorator_handler(func):
-            self._handlers.update({message_name: func})
-
-        return decorator_handler
-
-    def handler_class(self, topic):
-        def decorator_handler(clazz):
-            self._handlers.update({topic: clazz})
+            self._handlers.update({topic: func})
 
         return decorator_handler
 

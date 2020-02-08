@@ -6,7 +6,7 @@ def test_consume_with_class_handler():
     app = Eggplant(broker)
     received_messages = []
 
-    @app.handler_class('password_expired')
+    @app.handler('password_expired')
     class StubHandler:
         def handle(self, message):
             received_messages.append(message)
