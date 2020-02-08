@@ -1,10 +1,10 @@
-from kombu import Connection, Exchange, Queue, binding
+from kombu import Connection, Exchange, Queue, binding, Producer
 from kombu.mixins import ConsumerMixin
 
 
 class Worker(ConsumerMixin):
     def __init__(self, connection, queues, callback):
-        self._connection = connection
+        self.connection = connection
         self._queues = queues
         self._callback = callback
 
@@ -43,3 +43,8 @@ class RabbitKombuConsumer:
 
     def stop(self):
         self._worker.should_stop = True
+
+    def publish(self, topic, message):
+        with Connection(self._amqp_uri) as conn:
+            exchange = Exchange(self._exchange, type="topic")
+            Producer(exchange=exchange, channel=conn.channel(), routing_key=topic).publish(message)

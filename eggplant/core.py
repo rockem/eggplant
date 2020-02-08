@@ -17,3 +17,6 @@ class Eggplant:
 
     def stop(self):
         self._broker.stop()
+
+    def publish(self, topic, message):
+        self._broker.publish(topic, message)
